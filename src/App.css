@@ -1,0 +1,21 @@
+  #slider-round {
+    height: 10px;
+    margin-top: 55px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background: rgb(116, 200, 233);
+    border-radius: 9px;
+}
+
+#slider-round .noUi-handle {
+    height: 18px;
+    width: 18px;
+    top: -5px;
+    right: -9px; /* half the width */
+    border-radius: 9px;
+}
+
+#map{
+  height: 1000px;
+  width:100%;
+}

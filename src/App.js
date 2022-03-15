@@ -4,12 +4,11 @@ import L from 'leaflet';
 import $ from 'jquery';
 import noUiSlider from 'nouislider';
 
-
 function App() {
 
 
   useEffect(() => {
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    var map = L.map('map').setView([52.06, 7.40], 10);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -56,7 +55,7 @@ function App() {
     <div className='App'>
       <div class="slider-styled" id="slider-round"></div>
       <br/>
-      <div id="map" style={{ width: "100vw", height: "1000px" }}></div>
+      <div id="map"></div>
     </div>
 
   )

@@ -1,0 +1,7 @@
+.yearSlider {
+    position: absolute;
+    z-index: 1000;
+    width: 40%;
+    left: 35%;
+    bottom: 5%;
+}

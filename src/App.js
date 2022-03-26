@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import './App.css';
+import Article from "./Article.js";
 import YearSlider from "./YearSlider.js";
 
 const getData = (year, month) => {
@@ -47,7 +48,9 @@ class App extends Component {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
-            Hi
+            {this.state.articles.map(article => (
+              <Article article={article} />
+            ))}
           </Grid>
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>

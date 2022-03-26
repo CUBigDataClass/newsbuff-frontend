@@ -3,8 +3,16 @@ import Slider from '@mui/material/Slider';
 import './YearSlider.css';
 
 export default class YearSlider extends React.Component {
-    handleChange(_event, newValue) {
-        console.log(newValue);
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(_event, newYear) {
+        if (newYear !== this.props.year) {
+            console.log(newYear);
+            this.props.handleYearChange(newYear);
+        }
     }
 
     render() {

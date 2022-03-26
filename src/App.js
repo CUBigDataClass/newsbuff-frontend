@@ -24,18 +24,19 @@ class App extends Component {
       month: 1,
       articles: [] 
     };
+    this.handleYearChange = this.handleYearChange.bind(this);
   }
 
   componentDidMount() {
     getData(this.state.year, this.state.month)
-    .then(res => this.setState({ articles: res.rows }))
-    .then(()=> console.log([this.state.articles[0].lng, this.state.articles[0].lat]));
+    .then(res => this.setState({ articles: res.rows }));
+  }
+
+  handleYearChange(newYear) {
+    this.setState({ year: newYear });
   }
 
   render() {
-    if (this.state.articles && this.state.articles.length > 0) {
-      console.log([]);
-    }
     return (
       <div>
         <MapContainer center={[20, 0]} zoom={3} scrollWheelZoom={true}>
@@ -44,10 +45,14 @@ class App extends Component {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {this.state.articles.map(article => (
-            <Marker position={[article.lng, article.lat]} />
+            <Marker key={article.webURL} position={[article.lng, article.lat]} />
           ))}
         </MapContainer>
-        <YearSlider />
+        <YearSlider 
+          year={this.state.year}
+          month={this.state.month} 
+          handleYearChange={this.handleYearChange}
+        />
       </div>
     );
   }

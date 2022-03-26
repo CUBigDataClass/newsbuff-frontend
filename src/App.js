@@ -27,13 +27,18 @@ class App extends Component {
     this.handleYearChange = this.handleYearChange.bind(this);
   }
 
-  componentDidMount() {
+  updateArticles() {
     getData(this.state.year, this.state.month)
     .then(res => this.setState({ articles: res.rows }));
   }
 
+  componentDidMount() {
+    this.updateArticles();
+  }
+
   handleYearChange(newYear) {
     this.setState({ year: newYear });
+    this.updateArticles();
   }
 
   render() {

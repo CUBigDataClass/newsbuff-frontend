@@ -48,9 +48,11 @@ class App extends Component {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
-            {this.state.articles.map(article => (
-              <Article article={article} />
-            ))}
+            <div style={{ overflowY: 'scroll', height: '100vh' }}>
+              {this.state.articles.map(article => (
+                <Article article={article} />
+              ))}
+            </div>
           </Grid>
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>

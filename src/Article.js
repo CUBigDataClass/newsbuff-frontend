@@ -26,7 +26,8 @@ export default class Article extends React.Component {
                         </Typography> */}
                         <Typography variant="body2" color="text.secondary">
                             {this.getCardText(this.props.article.headline, this.props.article.description)}
-                        </Typography>
+                        </Typography> <br/>
+                        <Typography variant="body2" color="text.secondary"> {this.props.article.location + ', ' + this.props.article.datetime}</Typography>
                     </CardContent>
                 </CardActionArea>
             </Card>

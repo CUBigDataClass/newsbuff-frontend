@@ -1,10 +1,11 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import './App.css';
 import Article from "./Article.js";
 import YearSlider from "./YearSlider.js";
+
 
 const getData = (year, month) => {
   return fetch(`sample-responses/${year}/${month}.json`,
@@ -48,6 +49,7 @@ class App extends Component {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><h2>🌎 News Buff</h2></div>
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article article={article} />
@@ -62,7 +64,13 @@ class App extends Component {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {this.state.articles.map(article => (
-                  <Marker key={article.webURL} position={[article.lng, article.lat]} />
+                  <Marker key={article.webURL} position={[article.lng, article.lat]}>
+                    <Popup position={[article.lng, article.lat]}>
+                      <div>
+                      <Article article={article}/>
+                      </div>
+                    </Popup>
+                  </Marker>
                 ))}
               </MapContainer>
               <YearSlider

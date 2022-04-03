@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import './App.css';
 import Article from "./Article.js";
 import YearSlider from "./YearSlider.js";
-
+import Multiselect from "multiselect-react-dropdown";
 
 const getData = (year, month) => {
   return fetch(`sample-responses/${year}/${month}.json`,
@@ -25,7 +25,9 @@ class App extends Component {
     this.state = {
       year: 2020,
       month: 1,
-      articles: []
+      articles: [],
+      category: ["category1", "category2", "category3"],
+      subCategory: ["subCategory1", "subCategory2", "subCategory3"]
     };
     this.handleYearChange = this.handleYearChange.bind(this);
   }
@@ -59,6 +61,9 @@ class App extends Component {
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
               <MapContainer center={[20, 0]} zoom={3} scrollWheelZoom={true}>
+              {/* Category and Sub Category dropdown checkboxes */}
+              <Multiselect placeholder = "Select SubCategory" isObject={false} onRemove={(event) => {console.log(event); }} onSelect={(event) => {console.log(event);}}options={this.state.subCategory} selectedValues={["subCategory1"]} showCheckbox/>
+              <Multiselect placeholder = "Select Category" isObject={false}onRemove={(event) => {console.log(event);}} onSelect={(event) => {console.log(event); }} options={this.state.category} selectedValues={["category1"]} showCheckbox />
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

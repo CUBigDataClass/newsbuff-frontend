@@ -15,14 +15,17 @@ export default class Article extends React.Component {
     getSection(section) {
         return    (section!=='null' ? section : '');
     }
-
+    getSubSection(subsection) {
+        return    (subsection!=='null' ? subsection : '');
+    }
 
     render() {
         return (
             <Card sx={{ m: 2 }}>
                 <CardActionArea href={this.props.article.webURL} target="_blank">
                     <Typography variant="body2" color="text.secondary">
-                            {this.getSection(this.props.article.section)}  
+                            {this.getSection(this.props.article.section)}  <br/>
+                            {this.getSubSection(this.props.article.subsection)}
                     </Typography>
                     <CardMedia
                         component="img"

@@ -62,8 +62,7 @@ class App extends Component {
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
               <MapContainer center={[20, 0]} zoom={3} scrollWheelZoom={true}>
-              {/* Category and Sub Category dropdown checkboxes */}
-              <Multiselect placeholder = "Select SubCategory" isObject={false} onRemove={(event) => {console.log(event); }} onSelect={(event) => {console.log(event);}}options={this.state.subCategory} selectedValues={["subCategory1"]} showCheckbox/>
+              {/* Category dropdown checkboxes */}
               <Multiselect placeholder = "Select Category" isObject={false}onRemove={(event) => {console.log(event);}} onSelect={(event) => {console.log(event); }} options={this.state.category} selectedValues={["category1"]} showCheckbox />
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -6,9 +6,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import moment from 'moment';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-
-export default class Article extends React.Component {
+export default class ArticleHover extends React.Component {
     getCardText(headline, description) {
         return description.length < headline.length ? headline : description;
     }
@@ -22,7 +23,14 @@ export default class Article extends React.Component {
     render() {
         return (
             <Card sx={{ m: 2 }}>
+                    <Typography align = 'center' variant="body2" color="text.secondary">
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                             <div><button onClick={() => { console.log('prev clicked'); }}><ArrowBackIosIcon/></button></div>
+                             <div><button onClick={() => { console.log('next clicked'); }}><ArrowForwardIosIcon/></button></div>
+                        </div>
+                    </Typography>
                 <CardActionArea href={this.props.article.webURL} target="_blank">
+               
                     <Typography variant="body2" color="text.secondary">
                             {this.getSection(this.props.article.section)}  <br/>
                             {this.getSubSection(this.props.article.subsection)}

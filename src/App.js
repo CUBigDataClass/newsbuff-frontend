@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import './App.css';
 import Article from "./Article.js";
+import ArticleHover from "./ArticleHover";
 import YearSlider from "./YearSlider.js";
 import Multiselect from "multiselect-react-dropdown";
 
@@ -72,7 +73,7 @@ class App extends Component {
                   <Marker key={article.webURL} position={[article.lng, article.lat]}>
                     <Popup position={[article.lng, article.lat]}>
                       <div>
-                      <Article article={article}/>
+                      <ArticleHover article={article}/>
                       </div>
                     </Popup>
                   </Marker>

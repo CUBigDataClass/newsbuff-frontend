@@ -8,6 +8,7 @@ import ArticleHover from "./ArticleHover";
 import YearSlider from "./YearSlider.js";
 import Multiselect from "multiselect-react-dropdown";
 
+
 const getData = (year, month) => {
   return fetch(`sample-responses/${year}/${month}.json`,
     {
@@ -28,7 +29,7 @@ class App extends Component {
       month: 1,
       articles: [],
       category: ["category1", "category2", "category3"],
-      subCategory: ["subCategory1", "subCategory2", "subCategory3"]
+      search: ""
     };
     this.handleYearChange = this.handleYearChange.bind(this);
   }
@@ -47,12 +48,29 @@ class App extends Component {
     this.updateArticles();
   }
 
+  onChange = e => {
+    this.setState({search:e.target.value})
+  }
+
   render() {
+    const { search } = this.state;
+    if (search === ""){
+      console.log('no search')
+    }
+    //Write logic to intially log the article description if it contains the search term, then display articles whose description contains the search term
+    // else if(Description.includes(search.toLowerCase)){
+    //   console.log(Description)
+    // }
+    else{
+      console.log(search)
+    }
     return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><h2>🌎 News Buff</h2></div>
+            {/* search and filter articles */}
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><input style={{width:'320px'}} type='text' placeholder="🔍 Search Articles... " onChange={this.onChange}/></div><br/>
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article article={article} />

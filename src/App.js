@@ -6,6 +6,7 @@ import './App.css';
 import Article from "./Article.js";
 import ArticleHover from "./ArticleHover";
 import YearSlider from "./YearSlider.js";
+import Search from './Search'
 import Multiselect from "multiselect-react-dropdown";
 
 
@@ -28,10 +29,10 @@ class App extends Component {
       year: 2020,
       month: 1,
       articles: [],
-      category: ["category1", "category2", "category3"],
-      search: ""
+      category: ["section1", "section2", "section3"],
     };
     this.handleYearChange = this.handleYearChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   updateArticles() {
@@ -48,29 +49,23 @@ class App extends Component {
     this.updateArticles();
   }
 
-  onChange = e => {
-    this.setState({search:e.target.value})
+  handleSearch(searchTerm) {
+    this.setState({ year: searchTerm });
+    this.updateArticles();
   }
 
   render() {
-    const { search } = this.state;
-    if (search === ""){
-      console.log('no search')
-    }
-    //Write logic to intially log the article description if it contains the search term, then display articles whose description contains the search term
-    // else if(Description.includes(search.toLowerCase)){
-    //   console.log(Description)
-    // }
-    else{
-      console.log(search)
-    }
+
     return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><h2>🌎 News Buff</h2></div>
             {/* search and filter articles */}
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><input style={{width:'320px'}} type='text' placeholder="🔍 Search Articles... " onChange={this.onChange}/></div><br/>
+            <Search year={this.state.year}
+                month={this.state.month}
+                handleSearch={this.handleSearch}
+            />
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article article={article} />
@@ -80,8 +75,8 @@ class App extends Component {
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
               <MapContainer center={[20, 0]} zoom={3} scrollWheelZoom={true}>
-              {/* Category dropdown checkboxes */}
-              <Multiselect placeholder = "Select Category" isObject={false}onRemove={(event) => {console.log(event);}} onSelect={(event) => {console.log(event); }} options={this.state.category} selectedValues={["category1"]} showCheckbox />
+              {/* Section dropdown checkboxes */}
+              <Multiselect placeholder = "Select Section" isObject={false}onRemove={(event) => {console.log(event);}} onSelect={(event) => {console.log(event); }} options={this.state.category} selectedValues={["section1"]} showCheckbox />
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

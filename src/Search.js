@@ -22,7 +22,7 @@ export default class Search extends React.Component {
     render() {
         return (
             <div>
-            <input style={{width:'320px'}} type='text' value={this.state.value} placeholder="🔍 Search Articles... "  onChange={this.handleChange}/>
+            <input style={{width:'440px'}} type='text' value={this.state.value} placeholder="🔍 Search Articles... "  onChange={this.handleChange}/>
             </div>
             )
  

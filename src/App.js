@@ -62,10 +62,12 @@ class App extends Component {
           <Grid item xs={3}>
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><h2>🌎 News Buff</h2></div>
             {/* search and filter articles */}
-            <Search year={this.state.year}
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+              <Search year={this.state.year}
                 month={this.state.month}
                 handleSearch={this.handleSearch}
-            />
+              />
+            </div>
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article article={article} />

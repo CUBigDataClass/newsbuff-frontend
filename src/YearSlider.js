@@ -8,25 +8,41 @@ export default class YearSlider extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+ 
+
     handleChange(_event, newYear) {
         if (newYear !== this.props.year) {
             console.log(newYear);
             this.props.handleYearChange(newYear);
         }
     }
-
+    
     render() {
+       const marks = [
+            {
+              value: 2020,
+              label: 'Present',
+            },
+          ];
+          
+          function valuetext(value) {
+            return `${value}°C`;
+          }
+
         return (
             <div className="yearSlider">
                 <Slider
                     valueLabelDisplay="auto"
+                    getAriaValueText={valuetext}
+                    marks={marks}
                     step={1}
-                    marks
                     min={2016}
                     max={2020}
                     defaultValue={2020}
                     onChange={this.handleChange}
                 />
-            </div>)
+            </div>
+            
+            )
     }
 }

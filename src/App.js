@@ -29,7 +29,7 @@ class App extends Component {
       year: 2020,
       month: 1,
       articles: [],
-      category: ["section1", "section2", "section3"],
+      category: ["section1", "section2", "section3"]
     };
     this.handleYearChange = this.handleYearChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);

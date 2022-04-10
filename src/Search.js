@@ -11,12 +11,12 @@ export default class Search extends React.Component {
     handleChange(event) {
         this.setState({value: event.target.value});
         const searchTerm = this.state.value;
-
-        if(searchTerm !== null)
-        if (searchTerm !== this.props.year) {
-               console.log(searchTerm);
-               this.props.handleSearch(searchTerm);
-      }
+        if(searchTerm !== null){
+            if (searchTerm !== this.props.year) {
+                console.log(searchTerm);
+                this.props.handleSearch(searchTerm);
+            }
+        }
     }
 
     render() {

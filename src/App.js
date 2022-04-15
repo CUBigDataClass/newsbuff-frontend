@@ -8,6 +8,8 @@ import ArticleHover from "./ArticleHover";
 import YearSlider from "./YearSlider.js";
 import Search from './Search'
 import Multiselect from "multiselect-react-dropdown";
+import AreaSelect from "./AreaSelect";
+import leafletAreaSelect from "leaflet-area-select";
 
 
 const getData = (year, month) => {
@@ -54,8 +56,7 @@ class App extends Component {
     this.updateArticles();
   }
 
-  render() {
-
+  render() {         
     return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
@@ -83,6 +84,7 @@ class App extends Component {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                 <AreaSelect />
                 {this.state.articles.map(article => (
                   <Marker key={article.webURL} position={[article.lng, article.lat]}>
                     <Popup position={[article.lng, article.lat]}>

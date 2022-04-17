@@ -28,7 +28,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      year: 2020,
+      year: 2022,
       month: 1,
       day: 1,
       articles: [],
@@ -147,7 +147,7 @@ class App extends Component {
                 className="slider yearSlider"
                 minValue={1900}
                 maxValue={2022}
-                defaultValue={2022}
+                defaultValue={this.state.year}
                 currentValue={this.state.year}
                 handleChange={this.handleYearChange}
               />
@@ -155,7 +155,7 @@ class App extends Component {
                 className="slider monthSlider"
                 minValue={1}
                 maxValue={12}
-                defaultValue={1}
+                defaultValue={this.state.month}
                 currentValue={this.state.month}
                 handleChange={this.handleMonthChange}
               />
@@ -163,7 +163,7 @@ class App extends Component {
                 className="slider daySlider"
                 minValue={1}
                 maxValue={31}
-                defaultValue={1}
+                defaultValue={this.state.day}
                 currentValue={this.state.day}
                 handleChange={this.handleDayChange}
               />

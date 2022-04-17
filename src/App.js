@@ -139,40 +139,40 @@ class App extends Component {
     this.updateArticles();
   }
 
-  render() {         
+  render() {
     return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
-          <Grid item xs={3}>
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-            <Typography variant="h4" component="div" className='logo-text' sx={{my: 2}} style={{ fontWeight: 'bold' }}>
-              <span>🌎 </span>
-              <span className='logo-news'>News</span>
-              <span className='logo-buff'> Buff</span>
-            </Typography >
+          <Grid item xs={4}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Typography variant="h4" component="div" className='logo-text' sx={{ my: 2 }} style={{ fontWeight: 'bold' }}>
+                <span>🌎 </span>
+                <span className='logo-news'>News</span>
+                <span className='logo-buff'> Buff</span>
+              </Typography >
             </div>
-              <Search year={this.state.year}
-                month={this.state.month}
-                handleSearch={this.handleSearch}
-              />
+            <Search year={this.state.year}
+              month={this.state.month}
+              handleSearch={this.handleSearch}
+            />
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article key={article.uri} article={article} />
               ))}
             </div>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={8}>
             <div style={{ position: 'relative' }}>
               {/* Section dropdown checkboxes */}
-              <Multiselect placeholder = "Select Section" isObject={false}onRemove={(event) => {console.log(event);}} onSelect={(event) => {console.log(event); }} options={this.state.category} selectedValues={["section1"]} showCheckbox />
+              <Multiselect placeholder="Select Section" isObject={false} onRemove={(event) => { console.log(event); }} onSelect={(event) => { console.log(event); }} options={this.state.category} selectedValues={["section1"]} showCheckbox />
               <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                 />
-                 <AreaSelect />
-                 {this.state.locations.map(location => (
-                  <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location} 
+                <AreaSelect />
+                {this.state.locations.map(location => (
+                  <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location}
                     position={{ lat: location.latitude, lng: location.longitude }} />
                 ))}
               </MapContainer>

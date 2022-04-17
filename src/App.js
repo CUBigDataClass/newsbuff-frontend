@@ -13,6 +13,7 @@ import AreaSelect from "./AreaSelect";
 import leafletAreaSelect from "leaflet-area-select";
 import NewSlider from "./NewSlider.js";
 
+
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
 const TODAY = new Date();
 const CURRENT_YEAR = TODAY.getFullYear();
@@ -150,12 +151,10 @@ class App extends Component {
               <span className='logo-buff'> Buff</span>
             </Typography >
             </div>
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
               <Search year={this.state.year}
                 month={this.state.month}
                 handleSearch={this.handleSearch}
               />
-            </div>
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article key={article.uri} article={article} />

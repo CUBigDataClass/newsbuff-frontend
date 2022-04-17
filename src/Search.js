@@ -21,7 +21,7 @@ export default class Search extends React.Component {
         return (
             <Paper
                 component="form"
-                sx={{ mx: 2, mb: 1.5, p: '2px 4px', display: 'flex', alignItems: 'center' }}
+                sx={{ mx: 2, mb: 2, p: '2px 4px', display: 'flex', alignItems: 'center' }}
             >
                 <Typography sx={{ ml: 1}} style={{opacity: 0.3}}>🔍</Typography>
                 <InputBase

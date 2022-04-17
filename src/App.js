@@ -7,7 +7,6 @@ import './App.css';
 import Article from "./Article.js";
 import L from 'leaflet';
 import Search from './Search'
-import Multiselect from "multiselect-react-dropdown";
 import AreaSelect from "./AreaSelect";
 import NewSlider from "./NewSlider.js";
 
@@ -226,7 +225,7 @@ class App extends Component {
               month={this.state.month}
               handleChange={this.handleQueryChange}
             />
-            <div style={{ overflowY: 'scroll', height: '100vh' }}>
+            <div style={{ overflowY: 'scroll', height: 'calc(100vh - 7.9rem)' }}>
               {this.state.filteredArticles.map(article => (
                 <Article key={article.uri} article={article} />
               ))}
@@ -234,8 +233,6 @@ class App extends Component {
           </Grid>
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
-              {/* Section dropdown checkboxes */}
-              <Multiselect placeholder="Select Section" isObject={false} onRemove={(event) => { console.log(event); }} onSelect={(event) => { console.log(event); }} options={this.state.category} selectedValues={["section1"]} showCheckbox />
               <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'

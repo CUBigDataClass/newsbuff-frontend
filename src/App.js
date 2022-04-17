@@ -1,16 +1,14 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import './App.css';
 import Article from "./Article.js";
-import ArticleHover from "./ArticleHover";
 import L from 'leaflet';
 import Search from './Search'
 import Multiselect from "multiselect-react-dropdown";
 import AreaSelect from "./AreaSelect";
-import leafletAreaSelect from "leaflet-area-select";
 import NewSlider from "./NewSlider.js";
 
 

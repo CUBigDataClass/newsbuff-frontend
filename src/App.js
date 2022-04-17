@@ -1,11 +1,15 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import './App.css';
-import L from 'leaflet';
-
 import Article from "./Article.js";
+import ArticleHover from "./ArticleHover";
+import L from 'leaflet';
+import Search from './Search'
+import Multiselect from "multiselect-react-dropdown";
+import AreaSelect from "./AreaSelect";
+import leafletAreaSelect from "leaflet-area-select";
 import NewSlider from "./NewSlider.js";
 
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
@@ -37,10 +41,11 @@ class App extends Component {
       year: TODAY.getFullYear(),
       month: TODAY.getMonth() + 1,
       day: 1,
-      // day: TODAY.getDate(),
       articles: [],
-      locations: []
+      locations: [],
+      sections: []
     };
+    this.handleSearch = this.handleSearch.bind(this);
     this.handleYearChange = this.handleYearChange.bind(this);
     this.handleMonthChange = this.handleMonthChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
@@ -127,11 +132,24 @@ class App extends Component {
     });
   }
 
-  render() {
+  handleSearch(searchTerm) {
+    this.setState({ year: searchTerm });
+    this.updateArticles();
+  }
+
+  render() {         
     return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><h2>🌎 News Buff</h2></div>
+            {/* search and filter articles */}
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+              <Search year={this.state.year}
+                month={this.state.month}
+                handleSearch={this.handleSearch}
+              />
+            </div>
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article key={article.uri} article={article} />
@@ -140,12 +158,15 @@ class App extends Component {
           </Grid>
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
+              {/* Section dropdown checkboxes */}
+              <Multiselect placeholder = "Select Section" isObject={false}onRemove={(event) => {console.log(event);}} onSelect={(event) => {console.log(event); }} options={this.state.category} selectedValues={["section1"]} showCheckbox />
               <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                 />
-                {this.state.locations.map(location => (
+                 <AreaSelect />
+                 {this.state.locations.map(location => (
                   <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location} 
                     position={{ lat: location.latitude, lng: location.longitude }} />
                 ))}

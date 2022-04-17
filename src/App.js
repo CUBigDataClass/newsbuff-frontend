@@ -144,11 +144,28 @@ class App extends Component {
                 ))}
               </MapContainer>
               <NewSlider
-                minValue={2000}
+                className="slider yearSlider"
+                minValue={1900}
                 maxValue={2022}
                 defaultValue={2022}
                 currentValue={this.state.year}
                 handleChange={this.handleYearChange}
+              />
+              <NewSlider
+                className="slider monthSlider"
+                minValue={1}
+                maxValue={12}
+                defaultValue={1}
+                currentValue={this.state.month}
+                handleChange={this.handleMonthChange}
+              />
+              <NewSlider
+                className="slider daySlider"
+                minValue={1}
+                maxValue={31}
+                defaultValue={1}
+                currentValue={this.state.day}
+                handleChange={this.handleDayChange}
               />
             </div>
           </Grid>

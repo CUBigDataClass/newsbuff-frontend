@@ -16,11 +16,10 @@ export default class NewSlider extends React.Component {
 
     render() {
         return (
-            <div className="slider">
+            <div className={this.props.className}>
                 <Slider
-                    valueLabelDisplay="auto"
+                    valueLabelDisplay="on"
                     step={1}
-                    marks
                     min={this.props.minValue}
                     max={this.props.maxValue}
                     defaultValue={this.props.defaultValue}

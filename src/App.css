@@ -20,3 +20,23 @@
   left: -3px;
   z-index: -1;
 }
+
+.logo-text {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.logo-news {
+  background: -webkit-linear-gradient(3deg, #0078d7, #16c60c 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-buff {
+  color: #cfb87c;
+}
+
+.article-img {
+  width: 100%;
+  border-radius: 0.5rem;
+}

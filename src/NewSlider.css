@@ -4,17 +4,17 @@
     bottom: 5%;
 }
 
-.slider.yearSlider {
+.slider.year-slider {
     width: 30%;
     left: 10%;
 }
 
-.slider.monthSlider {
+.slider.month-slider {
     width: 15%;
     left: 48%;
 }
 
-.slider.daySlider {
+.slider.day-slider {
     width: 20%;
     left: 70%;
 }

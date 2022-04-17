@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
-import leafletAreaSelect from "leaflet-area-select";
 
 export default function AreaSelect() {
   const map = useMap();
@@ -25,7 +24,7 @@ export default function AreaSelect() {
 
     // now switch it off
     map.selectArea.setValidate();
-  }, []);
+  });
 
   return null;
 }

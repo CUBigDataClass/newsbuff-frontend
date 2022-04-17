@@ -2,6 +2,7 @@ import { Component } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import './App.css';
 import Article from "./Article.js";
 import ArticleHover from "./ArticleHover";
@@ -142,8 +143,13 @@ class App extends Component {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><h2>🌎 News Buff</h2></div>
-            {/* search and filter articles */}
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+            <Typography variant="h4" component="div" className='logo-text' sx={{my: 2}} style={{ fontWeight: 'bold' }}>
+              <span>🌎 </span>
+              <span className='logo-news'>News</span>
+              <span className='logo-buff'> Buff</span>
+            </Typography >
+            </div>
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
               <Search year={this.state.year}
                 month={this.state.month}
@@ -172,7 +178,7 @@ class App extends Component {
                 ))}
               </MapContainer>
               <NewSlider
-                className="slider yearSlider"
+                className="slider year-slider"
                 minValue={1900}
                 maxValue={2022}
                 defaultValue={CURRENT_YEAR}
@@ -180,7 +186,7 @@ class App extends Component {
                 handleChange={this.handleYearChange}
               />
               <NewSlider
-                className="slider monthSlider"
+                className="slider month-slider"
                 minValue={1}
                 maxValue={12}
                 defaultValue={CURRENT_MONTH}
@@ -188,7 +194,7 @@ class App extends Component {
                 handleChange={this.handleMonthChange}
               />
               <NewSlider
-                className="slider daySlider"
+                className="slider day-slider"
                 minValue={1}
                 maxValue={31}
                 defaultValue={CURRENT_DAY}

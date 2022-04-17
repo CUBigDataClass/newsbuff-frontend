@@ -3,6 +3,7 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
@@ -38,11 +39,12 @@ export default class Article extends React.Component {
         }
         return (
             <CardActionArea href={article.webURL} target="_blank">
-                <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, border: 0 }}>
+                <Divider light />
+                <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
                     <Grid container sx={{ mb: 0.5 }}>
                         <Grid item xs={8} pr={1}>
                             <Stack sx={{ mb: 0.5 }}>
-                                <Typography sx={{ mb: 0 }} variant="body2" gutterBottom>
+                                <Typography sx={{ mb: 0 }} variant="body2" color="primary" gutterBottom>
                                     <span dangerouslySetInnerHTML={{ __html: article.headline }} />
                                 </Typography>
                             </Stack>

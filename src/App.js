@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 import './App.css';
 import Article from "./Article.js";
 import PopupArticle from "./PopupArticle";
@@ -215,17 +216,20 @@ class App extends Component {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Typography variant="h4" component="div" className='logo-text' sx={{ my: 2 }} style={{ fontWeight: 'bold' }}>
-                <span>🌎 </span>
-                <span className='logo-news'>News</span>
-                <span className='logo-buff'> Buff</span>
-              </Typography >
-            </div>
-            <Search year={this.state.year}
-              month={this.state.month}
-              handleChange={this.handleQueryChange}
-            />
+            <Box>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography variant="h4" component="div" className='logo-text' sx={{ my: 2 }} style={{ fontWeight: 'bold' }}>
+                  <span>🌎 </span>
+                  <span className='logo-news'>News</span>
+                  <span className='logo-buff'> Buff</span>
+                </Typography >
+              </div>
+              <Search year={this.state.year}
+                month={this.state.month}
+                handleChange={this.handleQueryChange}
+              />
+              <Divider light />
+            </Box>
             <div style={{ overflowY: 'scroll', height: 'calc(100vh - 7.9rem)' }}>
               {this.state.filteredArticles.map(article => (
                 <Article key={article.uri} article={article} />

@@ -9,6 +9,7 @@ import Article from "./Article.js";
 import NewSlider from "./NewSlider.js";
 
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
+const TODAY = new Date();
 
 const getData = (year, month, day) => {
   return fetch(`${API_BASE_URL}/${year}/${month}/${day}`,
@@ -28,9 +29,10 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      year: 2022,
-      month: 1,
+      year: TODAY.getFullYear(),
+      month: TODAY.getMonth() + 1,
       day: 1,
+      // day: TODAY.getDate(),
       articles: [],
       locations: []
     };

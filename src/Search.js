@@ -6,18 +6,14 @@ import InputBase from '@mui/material/InputBase';
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: null};
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
-        const searchTerm = this.state.value;
-        if(searchTerm !== null){
-            if (searchTerm !== this.props.year) {
-                console.log(searchTerm);
-                this.props.handleSearch(searchTerm);
-            }
+        const newValue = event.target.value;
+        console.log(newValue);
+        if (newValue !== this.props.currentValue) {
+            this.props.handleChange(newValue);
         }
     }
 

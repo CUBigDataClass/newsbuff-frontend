@@ -41,50 +41,116 @@ class App extends Component {
       year: TODAY.getFullYear(),
       month: TODAY.getMonth() + 1,
       day: 1,
+      query: '',
       articles: [],
       locations: [],
-      sections: []
+      sections: [],
+      filteredArticles: [],
+      filteredLocations: [],
     };
-    this.handleSearch = this.handleSearch.bind(this);
     this.handleYearChange = this.handleYearChange.bind(this);
     this.handleMonthChange = this.handleMonthChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this);
+  }
+
+  getLocations(articles) {
+    const locationsObj = {};
+    articles.forEach(article => {
+      const articleLocations = article.locations;
+      articleLocations.forEach(articleLocation => {
+        const locationName = articleLocation.location;
+        if (!locationsObj.hasOwnProperty(locationName)) {
+          locationsObj[locationName] = { ...articleLocation };
+          locationsObj[locationName].articles = [article];
+        } else {
+          locationsObj[locationName].articles.push(article);
+        }
+      });
+    });
+    const locations = Object.values(locationsObj);
+    locations.forEach(location => {
+      let count = 0, sum = 0;
+      const locationArticles = location.articles;
+      locationArticles.forEach(locationArticle => {
+        count++;
+        if (!locationArticle.hasOwnProperty('sentimentScore'))
+          locationArticle.sentimentScore = Math.random() * 2 - 1;
+        sum += locationArticle.sentimentScore;
+      });
+      location.sentimentScore = sum / count;
+    });
+    return locations;
   }
 
   updateArticles() {
     getData(this.state.year, this.state.month, this.state.day)
       .then(res => {
         const articles = res.rows;
-        const locationsObj = {};
-        articles.forEach(article => {
-          const articleLocations = article.locations;
-          articleLocations.forEach(articleLocation => {
-            const locationName = articleLocation.location;
-            if (!locationsObj.hasOwnProperty(locationName)) {
-              locationsObj[locationName] = articleLocation;
-              locationsObj[locationName].articles = [article];
-            } else {
-              locationsObj[locationName].articles.push(article);
-            }
-          });
-        });
-        const locations = Object.values(locationsObj);
-        locations.forEach(location => {
-          let count = 0, sum = 0;
-          const locationArticles = location.articles;
-          locationArticles.forEach(locationArticle => {
-            count++;
-            if (!locationArticle.hasOwnProperty('sentimentScore'))
-              locationArticle.sentimentScore = Math.random() * 2 - 1;
-            sum += locationArticle.sentimentScore;
-          });
-          location.sentimentScore = sum / count;
-        });
+        const locations = this.getLocations(articles);
         if (this._isMounted) {
-          this.setState({ articles });
-          this.setState({ locations });
+          this.setState({ articles, locations });
+          this.updateFilteredArticles();
         }
       });
+  }
+
+  getHighlightedText(text, query) {
+    const queryLength = query.length;
+    const indexes = [...text.matchAll(new RegExp(query, 'gi'))].map(a => a.index);
+    const highlightedText = [];
+    const indexesLength = indexes.length;
+    let prevIndex = 0;
+    let match = indexes.length > 0;
+    for (let i=0; i<indexesLength; i++) {
+      if (prevIndex !== indexes[i]) {
+        const prevString = text.substring(prevIndex, indexes[i]);
+        highlightedText.push(prevString);
+      }
+      const highlightedSubstr = `<span class="highlighted-text">${text.substr(indexes[i], queryLength)}</span>`;
+      highlightedText.push(highlightedSubstr);
+      prevIndex = indexes[i] + queryLength;
+    }
+    if (prevIndex !== text.length) {
+      const prevString = text.substring(prevIndex, text.length);
+      highlightedText.push(prevString);
+    }
+    const highlightedTextString = highlightedText.join('');
+    return [match, highlightedTextString];
+  }
+  
+  updateFilteredArticles() {
+    const { articles, locations, query } = this.state;
+    if (!query) {
+      this.setState({ filteredArticles: articles, filteredLocations: locations });
+    } else {
+      const filteredArticles = [];
+      const articlesLength = articles.length;
+      for(let i = 0; i < articlesLength; i++) {
+        const [headlineMatch, highlightedHeadline] = this.getHighlightedText(articles[i].headline, query);
+        const [locationMatch, highlightedLocation] = this.getHighlightedText(articles[i].locations[0].location, query);
+        const [sectionMatch] = this.getHighlightedText(articles[i].section, query);
+        const [abstractMatch, highlightedAbstract] = this.getHighlightedText(articles[i].abstract, query);
+        if (headlineMatch || locationMatch || sectionMatch || abstractMatch) {
+          const filteredArticle = { ...articles[i] };
+          if (headlineMatch) {
+            filteredArticle.headline = highlightedHeadline;
+          }
+          if (locationMatch) {
+            filteredArticle.locations[0].location = highlightedLocation;
+          }
+          if (sectionMatch) {
+            filteredArticle.sectionHighlighted = true;
+          }
+          if (abstractMatch) {
+            filteredArticle.abstract = highlightedAbstract;
+          }
+          filteredArticles.push(filteredArticle);
+        }
+      }
+      const filteredLocations = this.getLocations(filteredArticles);
+      this.setState({ filteredArticles, filteredLocations });
+    }
   }
 
   componentDidMount() {
@@ -117,6 +183,13 @@ class App extends Component {
     }
   }
 
+  handleQueryChange(newQuery) {
+    if (this._isMounted) {
+      this.setState({ query: newQuery });
+      this.updateArticles();
+    }
+  }
+
   getMarkerIcon(sentimentScore) {
     // const min = 150; // red
     // const max = 270; // green
@@ -134,14 +207,14 @@ class App extends Component {
 
   handleSearch(searchTerm) {
     this.setState({ year: searchTerm });
-    this.updateArticles();
+    this.updateFilteredArticles();
   }
 
   render() {
     return (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Typography variant="h4" component="div" className='logo-text' sx={{ my: 2 }} style={{ fontWeight: 'bold' }}>
                 <span>🌎 </span>
@@ -151,15 +224,15 @@ class App extends Component {
             </div>
             <Search year={this.state.year}
               month={this.state.month}
-              handleSearch={this.handleSearch}
+              handleChange={this.handleQueryChange}
             />
             <div style={{ overflowY: 'scroll', height: '100vh' }}>
-              {this.state.articles.map(article => (
+              {this.state.filteredArticles.map(article => (
                 <Article key={article.uri} article={article} />
               ))}
             </div>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
               {/* Section dropdown checkboxes */}
               <Multiselect placeholder="Select Section" isObject={false} onRemove={(event) => { console.log(event); }} onSelect={(event) => { console.log(event); }} options={this.state.category} selectedValues={["section1"]} showCheckbox />
@@ -169,7 +242,7 @@ class App extends Component {
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                 />
                 <AreaSelect />
-                {this.state.locations.map(location => (
+                {this.state.filteredLocations.map(location => (
                   <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location}
                     position={{ lat: location.latitude, lng: location.longitude }} />
                 ))}

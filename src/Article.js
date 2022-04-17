@@ -30,6 +30,14 @@ export default class Article extends React.Component {
     }
     render() {
         const article = this.props.article;
+        let sectionChip = null;
+        if (article.section) {
+            if (article.sectionHighlighted) {
+                sectionChip = <Chip label={article.section} style={{backgroundColor:'#ffd63f'}} size="small" />;
+            } else {
+                sectionChip = <Chip label={article.section} size="small" />;
+            }
+        }
         return (
             <Card sx={{ m: 2 }}>
                 <CardActionArea href={article.webURL} target="_blank">
@@ -37,13 +45,13 @@ export default class Article extends React.Component {
                         <Grid container sx={{ mb: 0.5 }}>
                             <Grid item xs={8} pr={1}>
                                 <Typography sx={{ mb: 0.5 }} variant="body2" gutterBottom>
-                                    {article.headline}
+                                    <span dangerouslySetInnerHTML={{__html: article.headline}} />
                                 </Typography>
                                 <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
                                     <Stack direction="row" alignItems="center" gap={0.5}>
                                         <LocationOnIcon sx={{ fontSize: 14 }} />
                                         <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                            {article.locations[0].location}
+                                            <span dangerouslySetInnerHTML={{__html: article.locations[0].location}} />
                                         </Typography>
                                     </Stack>
                                     <Stack direction="row" alignItems="center" gap={0.5}>
@@ -53,9 +61,7 @@ export default class Article extends React.Component {
                                         </Typography>
                                     </Stack>
                                 </Stack>
-                                {article.section &&
-                                    <Chip label={article.section} size="small" />
-                                }
+                                {sectionChip}
                             </Grid>
                             <Grid item xs={4}>
                                 {article.imageURL &&
@@ -66,7 +72,7 @@ export default class Article extends React.Component {
                             </Grid>
                         </Grid>
                         <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                            {article.abstract}
+                            <span dangerouslySetInnerHTML={{__html: article.abstract}} />
                         </Typography>
                     </CardContent>
                 </CardActionArea>

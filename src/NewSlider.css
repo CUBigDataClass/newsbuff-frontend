@@ -1,0 +1,20 @@
+.slider {
+    position: absolute;
+    z-index: 1000;
+    bottom: 5%;
+}
+
+.slider.yearSlider {
+    width: 30%;
+    left: 10%;
+}
+
+.slider.monthSlider {
+    width: 15%;
+    left: 48%;
+}
+
+.slider.daySlider {
+    width: 20%;
+    left: 70%;
+}

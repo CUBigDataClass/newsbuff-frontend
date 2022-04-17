@@ -24,22 +24,23 @@ export default class Article extends React.Component {
             <Card sx={{ m: 2 }}>
                 <CardActionArea href={this.props.article.webURL} target="_blank">
                     <Typography variant="body2" color="text.secondary">
-                            {this.getSection(this.props.article.section)}  <br/>
-                            {this.getSubSection(this.props.article.subsection)}
+                        {this.getSection(this.props.article.section)}
                     </Typography>
-                    <CardMedia
-                        component="img"
-                        height="160"
-                        image={this.props.article.imageURL}
-                    />
+                    {this.props.article.imageURL && 
+                        <CardMedia
+                            component="img"
+                            height="160"
+                            image={this.props.article.imageURL}
+                        />
+                    }
                     <CardContent>
-                        {/* <Typography gutterBottom variant="h5" component="div">
-                            Headline
-                        </Typography> */}
-                        <Typography variant="body2" color="text.secondary">
-                            {this.getCardText(this.props.article.headline, this.props.article.description)}
-                        </Typography> <br/>
-                        <Typography variant="body2" color="text.secondary"> {this.props.article.location + ', ' + moment(this.props.article.datetime).format('MMMM Do [at] h:mm:ss a')}</Typography><br/>
+                        <Typography variant="body2" gutterBottom>
+                            {this.props.article.headline}
+                        </Typography>
+                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                            {this.props.article.abstract}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary"> {this.props.article.location + ', ' + moment(this.props.article.dateTime).format('MMMM Do [at] hh:mm a')}</Typography>
                     </CardContent>
                 </CardActionArea>
             </Card>

@@ -1,30 +1,29 @@
 import React from "react";
 import Slider from '@mui/material/Slider';
-import './YearSlider.css';
+import './NewSlider.css';
 
-export default class YearSlider extends React.Component {
+export default class NewSlider extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(_event, newYear) {
-        if (newYear !== this.props.year) {
-            console.log(newYear);
-            this.props.handleYearChange(newYear);
+    handleChange(_event, newValue) {
+        if (newValue !== this.props.currentValue) {
+            this.props.handleChange(newValue);
         }
     }
 
     render() {
         return (
-            <div className="yearSlider">
+            <div className="slider">
                 <Slider
                     valueLabelDisplay="auto"
                     step={1}
                     marks
-                    min={2016}
-                    max={2020}
-                    defaultValue={2020}
+                    min={this.props.minValue}
+                    max={this.props.maxValue}
+                    defaultValue={this.props.defaultValue}
                     onChange={this.handleChange}
                 />
             </div>)

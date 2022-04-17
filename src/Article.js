@@ -21,11 +21,11 @@ export default class Article extends React.Component {
                         image={this.props.article.imageURL}
                     />
                     <CardContent>
-                        {/* <Typography gutterBottom variant="h5" component="div">
-                            Headline
-                        </Typography> */}
-                        <Typography variant="body2" color="text.secondary">
-                            {this.getCardText(this.props.article.headline, this.props.article.description)}
+                        <Typography variant="body2" gutterBottom>
+                            {this.props.article.headline}
+                        </Typography>
+                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                            {this.props.article.abstract}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

@@ -125,22 +125,26 @@ class App extends Component {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item xs={3}>
-            {/* <div style={{ overflowY: 'scroll', height: '100vh' }}>
+            <div style={{ overflowY: 'scroll', height: '100vh' }}>
               {this.state.articles.map(article => (
                 <Article article={article} />
               ))}
-            </div> */}
+            </div>
           </Grid>
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
+
+              
               <MapContainer center={[20, 0]} zoom={3} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {this.state.locations.map(location => (
+                {this.state.locations.map(location => {
+                  console.log({location});
+                  return (
                   <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location} position={[location.latitude, location.longitude]} />
-                ))}
+                )})}
               </MapContainer>
               <NewSlider
                 minValue={2000}

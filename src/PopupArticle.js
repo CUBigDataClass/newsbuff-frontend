@@ -7,22 +7,64 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Article from "./Article.js";
 
 export default class PopupArticle extends React.Component {
-    render() {
-        const location = this.props.location;
-        return (
-            <Popup position={{ lat: location.latitude, lng: location.longitude }}>
-              <Stack sx={{px: 3, py: 0.5}} direction="row" alignItems="center" justifyContent="center" spacing={2}>
-                <Button disabled={true} size="small" variant="outlined" startIcon={<ArrowBackIcon />}>
-                  Prev
-                </Button>
-                <Button disabled={false} size="small" variant="outlined" endIcon={<ArrowForwardIcon />}>
-                  Next
-                </Button>
-              </Stack>
-            {/* {this.state.filteredArticles.map(article => ( */}
-              <Article article={location.articles[0]} />
-            {/* ))} */}
-              </Popup>
-        )
+  _isMounted = false;
+
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+      current: 0,
+      prevAvailable: false,
+      nextAvailable: false,
+    };
+    this.clickPrev = this.clickPrev.bind(this);
+    this.clickNext = this.clickNext.bind(this);
+  }
+
+  updatePrevNext(current, count) {
+    const prevAvailable = current > 0;
+    const nextAvailable = current < count-1;
+    if (this._isMounted) {
+      this.setState({ current, count, prevAvailable, nextAvailable });
     }
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    const count = this.props.location.articles.length;
+    this.updatePrevNext(0, count);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  clickPrev() {
+    let { current, count } = this.state;
+    current = this.state.current - 1;
+    this.updatePrevNext(current, count);
+  }
+
+  clickNext() {
+    let { current, count } = this.state;
+    current = this.state.current + 1;
+    this.updatePrevNext(current, count);
+  }
+
+  render() {
+    const location = this.props.location;
+    return (
+      <Popup position={{ lat: location.latitude, lng: location.longitude }}>
+        <Stack sx={{ px: 3, py: 0.5 }} direction="row" alignItems="center" justifyContent="center" spacing={2}>
+          <Button disabled={!this.state.prevAvailable} size="small" variant="outlined" onClick={this.clickPrev} startIcon={<ArrowBackIcon />}>
+            Prev
+          </Button>
+          <Button disabled={!this.state.nextAvailable} size="small" variant="outlined" onClick={this.clickNext} endIcon={<ArrowForwardIcon />}>
+            Next
+          </Button>
+        </Stack>
+        <Article article={location.articles[this.state.current]} />
+      </Popup>
+    )
+  }
 }

@@ -45,6 +45,19 @@
   background: #ffd63f;
 }
 
+.leaflet-popup-content p {
+  margin: 0;
+}
+
+.leaflet-popup-content {
+ margin: 0;
+ /* margin-top: 1rem; */
+}
+
+.leaflet-container a {
+  color: initial;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 0.8rem;

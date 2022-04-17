@@ -3,8 +3,6 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
@@ -33,50 +31,50 @@ export default class Article extends React.Component {
         let sectionChip = null;
         if (article.section) {
             if (article.sectionHighlighted) {
-                sectionChip = <Chip label={article.section} style={{backgroundColor:'#ffd63f'}} size="small" />;
+                sectionChip = <Chip label={article.section} style={{ backgroundColor: '#ffd63f' }} size="small" />;
             } else {
                 sectionChip = <Chip label={article.section} size="small" />;
             }
         }
         return (
-            <Card sx={{ m: 2 }}>
-                <CardActionArea href={article.webURL} target="_blank">
-                    <CardContent>
-                        <Grid container sx={{ mb: 0.5 }}>
-                            <Grid item xs={8} pr={1}>
-                                <Typography sx={{ mb: 0.5 }} variant="body2" gutterBottom>
-                                    <span dangerouslySetInnerHTML={{__html: article.headline}} />
+            <CardActionArea href={article.webURL} target="_blank">
+                <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, border: 0 }}>
+                    <Grid container sx={{ mb: 0.5 }}>
+                        <Grid item xs={8} pr={1}>
+                            <Stack sx={{ mb: 0.5 }}>
+                                <Typography sx={{ mb: 0 }} variant="body2" gutterBottom>
+                                    <span dangerouslySetInnerHTML={{ __html: article.headline }} />
                                 </Typography>
-                                <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
-                                    <Stack direction="row" alignItems="center" gap={0.5}>
-                                        <LocationOnIcon sx={{ fontSize: 14 }} />
-                                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                            <span dangerouslySetInnerHTML={{__html: article.locations[0].location}} />
-                                        </Typography>
-                                    </Stack>
-                                    <Stack direction="row" alignItems="center" gap={0.5}>
-                                        <AccessTimeFilledIcon sx={{ fontSize: 12 }} />
-                                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                            {this.getTime(article.dateTime)}
-                                        </Typography>
-                                    </Stack>
+                            </Stack>
+                            <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
+                                <Stack direction="row" alignItems="center" gap={0.5}>
+                                    <LocationOnIcon sx={{ fontSize: 14 }} />
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        <span dangerouslySetInnerHTML={{ __html: article.locations[0].location }} />
+                                    </Typography>
                                 </Stack>
-                                {sectionChip}
-                            </Grid>
-                            <Grid item xs={4}>
-                                {article.imageURL &&
-                                    <img className='article-img'
-                                        src={article.imageURL} alt="article"
-                                    />
-                                }
-                            </Grid>
+                                <Stack direction="row" alignItems="center" gap={0.5}>
+                                    <AccessTimeFilledIcon sx={{ fontSize: 12 }} />
+                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                        {this.getTime(article.dateTime)}
+                                    </Typography>
+                                </Stack>
+                            </Stack>
+                            {sectionChip}
                         </Grid>
-                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                            <span dangerouslySetInnerHTML={{__html: article.abstract}} />
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
+                        <Grid item xs={4}>
+                            {article.imageURL &&
+                                <img className='article-img'
+                                    src={article.imageURL} alt="article"
+                                />
+                            }
+                        </Grid>
+                    </Grid>
+                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                        <span dangerouslySetInnerHTML={{ __html: article.abstract }} />
+                    </Typography>
+                </Stack>
+            </CardActionArea>
         )
     }
 }

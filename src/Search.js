@@ -11,7 +11,6 @@ export default class Search extends React.Component {
 
     handleChange(event) {
         const newValue = event.target.value;
-        console.log(newValue);
         if (newValue !== this.props.currentValue) {
             this.props.handleChange(newValue);
         }

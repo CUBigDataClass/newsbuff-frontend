@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import './App.css';
 import Article from "./Article.js";
+import PopupArticle from "./PopupArticle";
 import L from 'leaflet';
 import Search from './Search'
 import AreaSelect from "./AreaSelect";
@@ -241,7 +242,9 @@ class App extends Component {
                 <AreaSelect />
                 {this.state.filteredLocations.map(location => (
                   <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location}
-                    position={{ lat: location.latitude, lng: location.longitude }} />
+                    position={{ lat: location.latitude, lng: location.longitude }}>
+                      <PopupArticle location={location} />
+                  </Marker>
                 ))}
               </MapContainer>
               <NewSlider

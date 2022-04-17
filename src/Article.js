@@ -15,11 +15,13 @@ export default class Article extends React.Component {
         return (
             <Card sx={{ m: 2 }}>
                 <CardActionArea href={this.props.article.webURL} target="_blank">
-                    <CardMedia
-                        component="img"
-                        height="160"
-                        image={this.props.article.imageURL}
-                    />
+                    {this.props.article.imageURL && 
+                        <CardMedia
+                            component="img"
+                            height="160"
+                            image={this.props.article.imageURL}
+                        />
+                    }
                     <CardContent>
                         <Typography variant="body2" gutterBottom>
                             {this.props.article.headline}

@@ -10,6 +10,11 @@ import NewSlider from "./NewSlider.js";
 
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
 const TODAY = new Date();
+const CURRENT_YEAR = TODAY.getFullYear();
+const CURRENT_MONTH = TODAY.getMonth() + 1;
+const CURRENT_DAY = 1;
+// const CURRENT_DAY = TODAY.getDate();
+
 
 const getData = (year, month, day) => {
   return fetch(`${API_BASE_URL}/${year}/${month}/${day}`,
@@ -137,8 +142,8 @@ class App extends Component {
             <div style={{ position: 'relative' }}>
               <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true}>
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                 />
                 {this.state.locations.map(location => (
                   <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location} 
@@ -149,7 +154,7 @@ class App extends Component {
                 className="slider yearSlider"
                 minValue={1900}
                 maxValue={2022}
-                defaultValue={this.state.year}
+                defaultValue={CURRENT_YEAR}
                 currentValue={this.state.year}
                 handleChange={this.handleYearChange}
               />
@@ -157,7 +162,7 @@ class App extends Component {
                 className="slider monthSlider"
                 minValue={1}
                 maxValue={12}
-                defaultValue={this.state.month}
+                defaultValue={CURRENT_MONTH}
                 currentValue={this.state.month}
                 handleChange={this.handleMonthChange}
               />
@@ -165,7 +170,7 @@ class App extends Component {
                 className="slider daySlider"
                 minValue={1}
                 maxValue={31}
-                defaultValue={this.state.day}
+                defaultValue={CURRENT_DAY}
                 currentValue={this.state.day}
                 handleChange={this.handleDayChange}
               />

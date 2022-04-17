@@ -1,7 +1,7 @@
 import React from "react";
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Popup } from 'react-leaflet';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Article from "./Article.js";
@@ -54,7 +54,7 @@ export default class PopupArticle extends React.Component {
   render() {
     const location = this.props.location;
     return (
-      <Popup position={{ lat: location.latitude, lng: location.longitude }}>
+      <Box>
         <Stack sx={{ px: 3, py: 0.5 }} direction="row" alignItems="center" justifyContent="center" spacing={2}>
           <Button disabled={!this.state.prevAvailable} size="small" variant="outlined" onClick={this.clickPrev} startIcon={<ArrowBackIcon />}>
             Prev
@@ -64,7 +64,7 @@ export default class PopupArticle extends React.Component {
           </Button>
         </Stack>
         <Article article={location.articles[this.state.current]} />
-      </Popup>
+      </Box>
     )
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -247,7 +247,9 @@ class App extends Component {
                 {this.state.filteredLocations.map(location => (
                   <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location}
                     position={{ lat: location.latitude, lng: location.longitude }}>
+                    <Popup position={{ lat: location.latitude, lng: location.longitude }}>
                       <PopupArticle location={location} />
+                    </Popup>
                   </Marker>
                 ))}
               </MapContainer>

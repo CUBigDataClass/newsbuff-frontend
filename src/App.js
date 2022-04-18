@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl, ScaleControl, Marker, Popup } from 'react-leaflet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -27,7 +27,6 @@ const getData = (year, month, day) => {
   if (cachedData.hasOwnProperty(key)) {
     return cachedData[key];
   }
-  console.log(`${key}- miss`);
   return fetch(`${API_BASE_URL}/${year}/${month}/${day}`,
     {
       headers: {
@@ -63,6 +62,8 @@ class App extends Component {
     this.handleMonthChange = this.handleMonthChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   getLocations(articles) {
@@ -201,14 +202,39 @@ class App extends Component {
     }
   }
 
-  getMarkerIcon(sentimentScore) {
+  handleMouseEnter(locationsSet) {
+    const { filteredLocations } = this.state;
+    filteredLocations.forEach(location => {
+      if (locationsSet.has(location.location)) {
+        location.inFocus = true;
+      }
+    });
+    if (this._isMounted) {
+      this.setState({ filteredLocations });
+    }
+  }
+
+  handleMouseLeave(locationsSet) {
+    const { filteredLocations } = this.state;
+    filteredLocations.forEach(location => {
+      if (locationsSet.has(location.location)) {
+        location.inFocus = false;
+      }
+    });
+    if (this._isMounted) {
+      this.setState({ filteredLocations });
+    }
+  }
+
+  getMarkerIcon(sentimentScore, inFocus) {
     // const min = 150; // red
     // const max = 270; // green
     // const mid = (min + max) / 2; // 210
     // const range = (max - min) / 2; // 60
     const rotation = 210 + sentimentScore * 60;
+    const inFocusClass = inFocus ? 'in-focus' : '';
     return L.divIcon({
-      className: 'custom-icon',
+      className: `custom-icon ${inFocusClass}`,
       html: `
       <img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png"/ style="filter: hue-rotate(${rotation}deg);">
       <img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png" class='shadow'>
@@ -245,23 +271,35 @@ class App extends Component {
             </Box>
             <div style={{ overflowY: 'scroll', height: 'calc(100vh - 9.5rem)' }}>
               {this.state.filteredArticles.map(article => (
-                <Article key={article.uri} article={article} />
+                <Article key={article.uri} article={article}
+                handleMouseEnter={this.handleMouseEnter}
+                handleMouseLeave={this.handleMouseLeave}
+                />
               ))}
             </div>
           </Grid>
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
-              <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true}>
+              <MapContainer center={[0, 0]} zoom={2} zoomControl={false} scrollWheelZoom={true}>
                 <TileLayer
                   attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                 />
+                <ScaleControl position="topright" />
+                <ZoomControl position="bottomright" />
                 <AreaSelect />
                 {this.state.filteredLocations.map(location => (
-                  <Marker icon={this.getMarkerIcon(location.sentimentScore)} key={location.location}
-                    position={{ lat: location.latitude, lng: location.longitude }}>
+                  <Marker
+                    icon={this.getMarkerIcon(location.sentimentScore, location.inFocus)}
+                    zIndexOffset={location.inFocus ? 1000 : 0}
+                    key={location.location}
+                    position={{ lat: location.latitude, lng: location.longitude }}
+                  >
                     <Popup position={{ lat: location.latitude, lng: location.longitude }}>
-                      <PopupArticle location={location} />
+                      <PopupArticle location={location} 
+                      handleMouseEnter={this.handleMouseEnter}
+                      handleMouseLeave={this.handleMouseLeave}
+                      />
                     </Popup>
                   </Marker>
                 ))}

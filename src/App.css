@@ -16,6 +16,11 @@
   height: 41px;
 }
 
+.custom-icon.in-focus > img {
+  transform: scale(1.5);
+  bottom: 15px;
+}
+
 .custom-icon > img.shadow {
   left: -3px;
   z-index: -1;

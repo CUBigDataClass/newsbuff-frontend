@@ -10,6 +10,22 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { CardActionArea } from '@mui/material';
 
 export default class Article extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleMouseEnter = this.handleMouseEnter.bind(this);
+        this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    }
+
+    handleMouseEnter() {
+        const locationsSet = new Set(this.props.article.locations.map(e => e.location));
+        this.props.handleMouseEnter(locationsSet);
+    }
+
+    handleMouseLeave() {
+        const locationsSet = new Set(this.props.article.locations.map(e => e.location));
+        this.props.handleMouseLeave(locationsSet);
+    }
+
     getTime(dateString) {
         const date = new Date(dateString);
         let hr = date.getHours();
@@ -38,7 +54,9 @@ export default class Article extends React.Component {
             }
         }
         return (
-            <CardActionArea href={article.webURL} target="_blank">
+            <CardActionArea href={article.webURL} target="_blank" 
+                onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}
+            >
                 <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
                     <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mb: 0.5 }} gap={1}>
                         <Box style={{width: '100%'}}>

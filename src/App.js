@@ -20,8 +20,14 @@ const CURRENT_MONTH = TODAY.getMonth() + 1;
 const CURRENT_DAY = 1;
 // const CURRENT_DAY = TODAY.getDate();
 
+const cachedData = {};
 
 const getData = (year, month, day) => {
+  const key = `${year}-${month}-${day}`;
+  if (cachedData.hasOwnProperty(key)) {
+    return cachedData[key];
+  }
+  console.log(`${key}- miss`);
   return fetch(`${API_BASE_URL}/${year}/${month}/${day}`,
     {
       headers: {
@@ -30,7 +36,11 @@ const getData = (year, month, day) => {
       }
     }
   )
-    .then(res => res.json());
+    .then(res => {
+      const data = res.json();
+      cachedData[key] = data;
+      return data;
+    });
 };
 
 class App extends Component {

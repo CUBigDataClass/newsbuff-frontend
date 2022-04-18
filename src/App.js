@@ -73,7 +73,7 @@ class App extends Component {
       articleLocations.forEach(articleLocation => {
         const locationName = articleLocation.location;
         if (!locationsObj.hasOwnProperty(locationName)) {
-          locationsObj[locationName] = { ...articleLocation };
+          locationsObj[locationName] = JSON.parse(JSON.stringify(articleLocation));
           locationsObj[locationName].articles = [article];
         } else {
           locationsObj[locationName].articles.push(article);
@@ -101,8 +101,7 @@ class App extends Component {
         const articles = res.rows;
         const locations = this.getLocations(articles);
         if (this._isMounted) {
-          this.setState({ articles, locations });
-          this.updateFilteredArticles();
+          this.updateFilteredArticles(true, articles, locations, this.state.query);
         }
       });
   }
@@ -131,10 +130,13 @@ class App extends Component {
     return [match, highlightedTextString];
   }
   
-  updateFilteredArticles() {
-    const { articles, locations, query } = this.state;
+  updateFilteredArticles(fetched, articles, locations, query) {
     if (!query) {
-      this.setState({ filteredArticles: articles, filteredLocations: locations });
+      if (fetched) {
+        this.setState({ articles, locations, query, filteredArticles: articles, filteredLocations: locations });
+      } else {
+        this.setState({ query, filteredArticles: articles, filteredLocations: locations });
+      }
     } else {
       const filteredArticles = [];
       const articlesLength = articles.length;
@@ -144,7 +146,7 @@ class App extends Component {
         const [sectionMatch] = this.getHighlightedText(articles[i].section, query);
         const [abstractMatch, highlightedAbstract] = this.getHighlightedText(articles[i].abstract, query);
         if (headlineMatch || locationMatch || sectionMatch || abstractMatch) {
-          const filteredArticle = { ...articles[i] };
+          const filteredArticle = JSON.parse(JSON.stringify(articles[i]));
           if (headlineMatch) {
             filteredArticle.headline = highlightedHeadline;
           }
@@ -161,7 +163,11 @@ class App extends Component {
         }
       }
       const filteredLocations = this.getLocations(filteredArticles);
-      this.setState({ filteredArticles, filteredLocations });
+      if (fetched) {
+        this.setState({ articles, locations, query, filteredArticles, filteredLocations });
+      } else {
+        this.setState({ query, filteredArticles, filteredLocations });
+      }
     }
   }
 
@@ -197,8 +203,7 @@ class App extends Component {
 
   handleQueryChange(newQuery) {
     if (this._isMounted) {
-      this.setState({ query: newQuery });
-      this.updateArticles();
+      this.updateFilteredArticles(false, this.state.articles, this.state.locations, newQuery);
     }
   }
 
@@ -240,11 +245,6 @@ class App extends Component {
       <img src="https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png" class='shadow'>
       `
     });
-  }
-
-  handleSearch(searchTerm) {
-    this.setState({ year: searchTerm });
-    this.updateFilteredArticles();
   }
 
   render() {

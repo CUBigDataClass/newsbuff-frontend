@@ -41,7 +41,7 @@ export default class Article extends React.Component {
             <CardActionArea href={article.webURL} target="_blank">
                 <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
                     <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mb: 0.5 }} gap={1}>
-                        <Box>
+                        <Box style={{width: '100%'}}>
                             <Stack sx={{ mb: 0.5 }}>
                                 <Typography sx={{ mb: 0 }} variant="body2" color="primary" gutterBottom>
                                     <span dangerouslySetInnerHTML={{ __html: article.headline }} />

@@ -238,9 +238,12 @@ class App extends Component {
                 month={this.state.month}
                 handleChange={this.handleQueryChange}
               />
+              <Typography sx={{ mx: 2, mb: 1 }} variant="body2" color="secondary">
+                Showing {this.state.filteredArticles.length} news articles
+              </Typography >
               <Divider light />
             </Box>
-            <div style={{ overflowY: 'scroll', height: 'calc(100vh - 8rem)' }}>
+            <div style={{ overflowY: 'scroll', height: 'calc(100vh - 9.5rem)' }}>
               {this.state.filteredArticles.map(article => (
                 <Article key={article.uri} article={article} />
               ))}

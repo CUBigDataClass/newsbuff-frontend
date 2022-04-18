@@ -1,6 +1,7 @@
 import './Article.css';
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
@@ -41,8 +42,8 @@ export default class Article extends React.Component {
             <CardActionArea href={article.webURL} target="_blank">
                 <Divider light />
                 <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
-                    <Grid container sx={{ mb: 0.5 }}>
-                        <Grid item xs={8} pr={1}>
+                    <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mb: 0.5 }} gap={1}>
+                        <Box>
                             <Stack sx={{ mb: 0.5 }}>
                                 <Typography sx={{ mb: 0 }} variant="body2" color="primary" gutterBottom>
                                     <span dangerouslySetInnerHTML={{ __html: article.headline }} />
@@ -63,15 +64,15 @@ export default class Article extends React.Component {
                                 </Stack>
                             </Stack>
                             {sectionChip}
-                        </Grid>
-                        <Grid item xs={4}>
+                        </Box>
+                        <Box>
                             {article.imageURL &&
                                 <img className='article-img'
                                     src={article.imageURL} alt="article"
                                 />
                             }
-                        </Grid>
-                    </Grid>
+                        </Box>
+                    </Stack>
                     <Typography sx={{ fontSize: 12 }} color="text.secondary">
                         <span dangerouslySetInnerHTML={{ __html: article.abstract }} />
                     </Typography>

@@ -230,7 +230,7 @@ class App extends Component {
               />
               <Divider light />
             </Box>
-            <div style={{ overflowY: 'scroll', height: 'calc(100vh - 7.9rem)' }}>
+            <div style={{ overflowY: 'scroll', height: 'calc(100vh - 8rem)' }}>
               {this.state.filteredArticles.map(article => (
                 <Article key={article.uri} article={article} />
               ))}

@@ -1,6 +1,5 @@
 import './Article.css';
 import * as React from 'react';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -40,7 +39,6 @@ export default class Article extends React.Component {
         }
         return (
             <CardActionArea href={article.webURL} target="_blank">
-                <Divider light />
                 <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
                     <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mb: 0.5 }} gap={1}>
                         <Box>
@@ -77,6 +75,7 @@ export default class Article extends React.Component {
                         <span dangerouslySetInnerHTML={{ __html: article.abstract }} />
                     </Typography>
                 </Stack>
+                <Divider light />
             </CardActionArea>
         )
     }

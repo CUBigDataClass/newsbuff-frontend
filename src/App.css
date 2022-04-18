@@ -58,6 +58,12 @@
   color: initial;
 }
 
+.leaflet-container a.leaflet-popup-close-button {
+  bottom: 0;
+  top: initial;
+  padding-bottom: 4px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 0.8rem;

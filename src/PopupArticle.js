@@ -1,6 +1,7 @@
 import React from "react";
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -55,7 +56,13 @@ export default class PopupArticle extends React.Component {
     const location = this.props.location;
     return (
       <Box>
-        <Stack sx={{ px: 3, py: 0.5 }} direction="row" alignItems="center" justifyContent="center" spacing={2}>
+        <Article article={location.articles[this.state.current]} />
+        <Box sx={{position: 'absolute', bottom: '0.5rem', left: '0.5rem'}}>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary">
+            {this.state.current + 1}/{this.state.count}
+          </Typography>
+        </Box>
+        <Stack sx={{ px: 3, py: 0.5 }} direction="row" alignItems="center" justifyContent="center" spacing={1}>
           <Button disabled={!this.state.prevAvailable} size="small" variant="outlined" onClick={this.clickPrev} startIcon={<ArrowBackIcon />}>
             Prev
           </Button>
@@ -63,7 +70,6 @@ export default class PopupArticle extends React.Component {
             Next
           </Button>
         </Stack>
-        <Article article={location.articles[this.state.current]} />
       </Box>
     )
   }

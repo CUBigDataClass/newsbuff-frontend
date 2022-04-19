@@ -1,5 +1,6 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, ZoomControl, ScaleControl, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl, ScaleControl, Marker, Popup, FeatureGroup} from 'react-leaflet';
+import "leaflet-area-select";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -9,8 +10,12 @@ import Article from "./Article.js";
 import PopupArticle from "./PopupArticle";
 import L from 'leaflet';
 import Search from './Search'
-import AreaSelect from "./AreaSelect";
 import NewSlider from "./NewSlider.js";
+import {EditControl} from 'react-leaflet-draw';
+import "leaflet-draw/dist/leaflet.draw.css";
+import Polygon from "./Polygon";
+
+
 
 
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
@@ -248,6 +253,9 @@ class App extends Component {
     });
   }
 
+  
+  
+
   render() {
     return (
       <Box sx={{ flexGrow: 1 }}>
@@ -282,13 +290,15 @@ class App extends Component {
           <Grid item xs={9}>
             <div style={{ position: 'relative' }}>
               <MapContainer center={[0, 0]} zoom={2} zoomControl={false} scrollWheelZoom={true}>
+                <Polygon/>
                 <TileLayer
                   attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                 />
                 <ScaleControl position="topright" />
                 <ZoomControl position="bottomright" />
-                <AreaSelect />
+    
+          
                 {this.state.filteredLocations.map(location => (
                   <Marker
                     icon={this.getMarkerIcon(location.sentimentScore, location.inFocus)}

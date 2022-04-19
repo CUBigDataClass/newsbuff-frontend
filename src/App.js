@@ -95,13 +95,13 @@ class App extends Component {
     return locations;
   }
 
-  updateArticles() {
-    getData(this.state.year, this.state.month, this.state.day)
+  updateArticles(year, month, day) {
+    getData(year, month, day)
       .then(res => {
         const articles = res.rows;
         const locations = this.getLocations(articles);
         if (this._isMounted) {
-          this.updateFilteredArticles(true, articles, locations, this.state.query);
+          this.updateFilteredArticles(true, articles, locations, this.state.query, year, month, day);
         }
       });
   }
@@ -130,10 +130,12 @@ class App extends Component {
     return [match, highlightedTextString];
   }
   
-  updateFilteredArticles(fetched, articles, locations, query) {
+  updateFilteredArticles(fetched, articles, locations, query, year, month, day) {
     if (!query) {
       if (fetched) {
-        this.setState({ articles, locations, query, filteredArticles: articles, filteredLocations: locations });
+        this.setState({ articles, locations, query, 
+          filteredArticles: articles, filteredLocations: locations, 
+          year, month, day });
       } else {
         this.setState({ query, filteredArticles: articles, filteredLocations: locations });
       }
@@ -164,7 +166,9 @@ class App extends Component {
       }
       const filteredLocations = this.getLocations(filteredArticles);
       if (fetched) {
-        this.setState({ articles, locations, query, filteredArticles, filteredLocations });
+        this.setState({ articles, locations, query, 
+          filteredArticles, filteredLocations,
+          year, month, day });
       } else {
         this.setState({ query, filteredArticles, filteredLocations });
       }
@@ -173,7 +177,7 @@ class App extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.updateArticles();
+    this.updateArticles(this.state.year, this.state.month, this.state.day);
   }
 
   componentWillUnmount() {
@@ -182,22 +186,19 @@ class App extends Component {
 
   handleYearChange(newYear) {
     if (this._isMounted) {
-      this.setState({ year: newYear });
-      this.updateArticles();
+      this.updateArticles(newYear, this.state.month, this.state.day);
     }
   }
 
   handleMonthChange(newMonth) {
     if (this._isMounted) {
-      this.setState({ month: newMonth });
-      this.updateArticles();
+      this.updateArticles(this.state.year, newMonth, this.state.day);
     }
   }
 
   handleDayChange(newDay) {
     if (this._isMounted) {
-      this.setState({ day: newDay });
-      this.updateArticles();
+      this.updateArticles(this.state.year, this.state.month, newDay);
     }
   }
 

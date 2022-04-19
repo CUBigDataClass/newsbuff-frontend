@@ -2,6 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
 
@@ -28,9 +30,13 @@ export default function BasicModal() {
 
   return (
     <div>
-      <IconButton onClick={handleOpen} size="small" aria-label="share">
-          <ShareIcon fontSize="inherit" />
-      </IconButton>
+      {/* <Chip icon={<ShareIcon />} variant="outlined" /> */}
+      {/* <IconButton color="primary" sx={{border: 1}} onClick={handleOpen} size="small" aria-label="share">
+          <ShareIcon sx={{ fontSize: 12 }} />
+      </IconButton> */}
+      <Button color="secondary" sx={{ fontSize: 11 }} size="small" variant="outlined" onClick={handleOpen} startIcon={<ShareIcon />}>
+        Share
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

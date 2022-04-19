@@ -25,10 +25,17 @@ export default function Polygon(){
       const _onDeleted = e => {
         console.log(e);
       }
-
-      console.log(JSON.stringify(mapLayers,0,2))
-
-
+      const points = mapLayers[0].latlngs;
+      console.log({points});
+      const pointsLength = points.length;
+      const polygon = [];
+      for(let i = 0; i < pointsLength; i++) {
+        const point = points[i];
+        polygon.push([point.lng, point.lat]);
+      }
+      polygon.push([points[0].lng, points[0].lat]);
+      const data = [polygon];
+      console.log({data})
 
     return (
         <FeatureGroup>

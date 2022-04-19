@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { MapContainer, TileLayer, ZoomControl, ScaleControl, Marker, Popup } from 'react-leaflet';
+import "leaflet-area-select";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';

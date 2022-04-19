@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { MapContainer, TileLayer, ZoomControl, ScaleControl, Marker, Popup, FeatureGroup} from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl, ScaleControl, Marker, Popup,} from 'react-leaflet';
 import "leaflet-area-select";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -11,7 +11,6 @@ import PopupArticle from "./PopupArticle";
 import L from 'leaflet';
 import Search from './Search'
 import NewSlider from "./NewSlider.js";
-import {EditControl} from 'react-leaflet-draw';
 import "leaflet-draw/dist/leaflet.draw.css";
 import Polygon from "./Polygon";
 

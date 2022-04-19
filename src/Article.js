@@ -5,18 +5,16 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import ShareIcon from '@mui/icons-material/Share';
 import { CardActionArea } from '@mui/material';
+import BasicModal from "./BasicModal.js";
 
 export default class Article extends React.Component {
     constructor(props) {
         super(props);
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
-        this.clickShare = this.clickShare.bind(this);
     }
 
     handleMouseEnter() {
@@ -27,10 +25,6 @@ export default class Article extends React.Component {
     handleMouseLeave() {
         const locationsSet = new Set(this.props.article.locations.map(e => e.location));
         this.props.handleMouseLeave(locationsSet);
-    }
-
-    clickShare(e) {
-        e.preventDefault();
     }
 
     getTime(dateString) {
@@ -88,9 +82,7 @@ export default class Article extends React.Component {
                             </Stack>
                             <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
                                 {sectionChip}
-                                <IconButton onClick={this.clickShare} size="small" aria-label="share">
-                                    <ShareIcon fontSize="inherit" />
-                                </IconButton>
+                                <BasicModal />
                             </Stack>
                         </Box>
                         <Box>

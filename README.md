@@ -5,9 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 **Project Description**<br>
 To display an interactive world map which dynamically fetches News Articles and displays them across the map. The user has the flexibility to view the articles, filter articles based on date, and also search for various articles of personal interest. 
 
-**Package Manager** used is NPM. <br>
+**Package Manager** used is **NPM** <br>
 
-**Webpack** module bundler used for managing the JavaScript codebase.<br>
+**Webpack** module bundler used for managing the JavaScript codebase<br>
 
 **Main JavaScript** Library used for building the front-end is **ReactJS** 
 

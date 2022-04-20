@@ -17,12 +17,12 @@ To display an interactive world map which dynamically fetches News Articles and 
 
 **Interactive Map Framework** used is **Leaflet** | Tiles @Esri 
 
-    - The main base map is intergrated using Leaflet.
+    - The main base map is intergrated using React Leaflet Component Library.
     - Various leaflet plugins for the map were also used to integrate functionalities such as - hovering 
     over news article pins (markers and popup), selecting an area of the map by drawing a polygon (react-leaflet-draw), etc..
 
  **Major 3rd-party library** used for **styling** and front-end design is **Material-UI (@mui/material/...)** 
- 
+
     - News Article Card components were designed using this library which includes typography,stack, cardactionarea, chip, etc..
 
 

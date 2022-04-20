@@ -6,6 +6,9 @@ import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
 import { FacebookIcon, TwitterIcon, EmailIcon, WhatsappIcon } from 'react-share';
 import Stack from '@mui/material/Stack';
+import { useState } from 'react';
+
+
 
 
 const style = {
@@ -28,8 +31,12 @@ export default function BasicModal() {
   }
   const handleClose = () => setOpen(false);
 
-  const copyLink = () => {
-    alert('url copied')
+  //URL Copy to clipboard logic
+  const [text, setText] = useState('');
+  const inputHandler = event => {setText(event.target.value);}
+  const copyLink = async () => {
+      await navigator.clipboard.writeText(text);
+      alert('URL Copied to Clipboard');
     }
 
   return (
@@ -54,15 +61,15 @@ export default function BasicModal() {
           <Typography id="modal-modal-description" component="h6" sx={{ mt: 2 }}>
           <Stack direction="row" alignItems="center" gap={25}>
               <Typography>Image</Typography>   
-              <Typography>Staten Island New York</Typography>  
+              <Typography>Staten Island (NYC)</Typography>  
              </Stack>
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Stack direction="row" alignItems="center" gap={10}>
-              <Typography><input type="text" value="Link" id="myInput" style={{width:'200px'}}/></Typography>   
+              <Typography> <input type="text" value={text} onChange={inputHandler}/></Typography>   
               <Typography><button onClick={copyLink} style={{color: 'blue', outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}>COPY LINK</button></Typography>  
              </Stack>
-          </Typography>
+          </Typography><br/>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <Stack direction="row" alignItems="center" gap={1.0}>
                <button onClick={copyLink} style={{outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}><TwitterIcon size={32} round={true}  /> </button> 

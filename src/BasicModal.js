@@ -8,9 +8,6 @@ import { FacebookIcon, TwitterIcon, EmailIcon, WhatsappIcon } from 'react-share'
 import Stack from '@mui/material/Stack';
 import { useState } from 'react';
 
-
-
-
 const style = {
   position: 'absolute',
   top: '50%',

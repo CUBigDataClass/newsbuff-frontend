@@ -20,6 +20,7 @@
     "react-leaflet-draw": "^0.19.8",
     "react-scripts": "5.0.0",
     "react-share": "^4.4.0",
+    "react-share-icons": "^1.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

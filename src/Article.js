@@ -65,6 +65,7 @@ export default class Article extends React.Component {
         }
         return `${hr}:${min} ${ampm}`;
     }
+    
     render() {
         const article = this.props.article;
         let sectionChip = null;

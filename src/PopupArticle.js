@@ -54,6 +54,7 @@ export default class PopupArticle extends React.Component {
 
   render() {
     const location = this.props.location;
+    
     return (
       <Box>
         <Article article={location.articles[this.state.current]} />

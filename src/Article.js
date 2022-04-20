@@ -82,7 +82,7 @@ export default class Article extends React.Component {
                             </Stack>
                             <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
                                 {sectionChip}
-                                <BasicModal />
+                                <BasicModal article={article} />
                             </Stack>
                         </Box>
                         <Box>

@@ -21,7 +21,6 @@ const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
 const TODAY = new Date();
 const CURRENT_YEAR = TODAY.getFullYear();
 const CURRENT_MONTH = TODAY.getMonth() + 1;
-// const CURRENT_DAY = 1;
 const CURRENT_DAY = TODAY.getDate();
 
 const cachedData = {};
@@ -52,9 +51,9 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      year: TODAY.getFullYear(),
-      month: TODAY.getMonth() + 1,
-      day: 1,
+      year: CURRENT_YEAR,
+      month: CURRENT_MONTH,
+      day: CURRENT_DAY,
       query: '',
       articles: [],
       locations: [],
@@ -273,7 +272,7 @@ class App extends Component {
                 handleChange={this.handleQueryChange}
               />
               <Typography sx={{ mx: 2, mb: 1 }} variant="body2" color="secondary">
-                Showing {this.state.filteredArticles.length} news articles
+                Showing {this.state.filteredArticles.length} news article{this.state.filteredArticles.length !== 1 && 's'}
               </Typography >
               <Divider light />
             </Box>

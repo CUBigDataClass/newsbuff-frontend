@@ -9,7 +9,7 @@ export default function Polygon(){
 
 
     const _onCreate = e => {
-        console.log(e);
+        // console.log(e);
 
         const{layerType, layer}=e;
         if(layerType==='polygon'){
@@ -20,13 +20,13 @@ export default function Polygon(){
       }
 
       const _onEdited = e => {
-        console.log(e);
+        // console.log(e);
       }
       const _onDeleted = e => {
-        console.log(e);
+        // console.log(e);
       }
 
-      console.log(JSON.stringify(mapLayers,0,2))
+      // console.log(JSON.stringify(mapLayers,0,2))
 
 
 

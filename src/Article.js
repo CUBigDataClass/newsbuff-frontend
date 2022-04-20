@@ -8,24 +8,45 @@ import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { CardActionArea } from '@mui/material';
+import Button from '@mui/material/Button';
+import ShareIcon from '@mui/icons-material/Share';
 import BasicModal from "./BasicModal.js";
 
 export default class Article extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+          modalOpen: false,
+        };
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     handleMouseEnter() {
-        const locationsSet = new Set(this.props.article.locations.map(e => e.location));
-        this.props.handleMouseEnter(locationsSet);
+        const handleMouseEnterFunction = this.props.handleMouseEnter;
+        if (handleMouseEnterFunction) {
+            const locationsSet = new Set(this.props.article.locations.map(e => e.location));
+            handleMouseEnterFunction(locationsSet);
+        }
     }
 
     handleMouseLeave() {
-        const locationsSet = new Set(this.props.article.locations.map(e => e.location));
-        this.props.handleMouseLeave(locationsSet);
+        const handleMouseLeaveFunction = this.props.handleMouseLeave;
+        if (handleMouseLeaveFunction) {
+            const locationsSet = new Set(this.props.article.locations.map(e => e.location));
+            handleMouseLeaveFunction(locationsSet);
+        }
     }
+
+    handleOpen(e) {
+      e.preventDefault();
+      this.setState({modalOpen: true});
+    }
+    handleClose() {
+      this.setState({modalOpen: false});
+    };
 
     getTime(dateString) {
         const date = new Date(dateString);
@@ -55,50 +76,56 @@ export default class Article extends React.Component {
             }
         }
         return (
-            <CardActionArea href={article.webURL} target="_blank" 
-                onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}
-            >
-                <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
-                    <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mb: 0.5 }} gap={1}>
-                        <Box style={{width: '100%'}}>
-                            <Stack sx={{ mb: 0.5 }}>
-                                <Typography sx={{ mb: 0 }} variant="body2" color="primary" gutterBottom>
-                                    <span dangerouslySetInnerHTML={{ __html: article.headline }} />
-                                </Typography>
-                            </Stack>
-                            <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
-                                <Stack direction="row" alignItems="center" gap={0.5}>
-                                    <LocationOnIcon sx={{ fontSize: 14 }} />
-                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                        <span dangerouslySetInnerHTML={{ __html: article.locations[0].location }} />
+            <Box>
+                <BasicModal article={article} modalOpen={this.state.modalOpen} handleClose={this.handleClose} />
+                <CardActionArea href={article.webURL} target="_blank"
+                    onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}
+                >
+                    <Stack sx={{ p: 1.5 }} style={{ borderRadius: 0, borderTop: 1 }}>
+                        <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ mb: 0.5 }} gap={1}>
+                            <Box style={{ width: '100%' }}>
+                                <Stack sx={{ mb: 0.5 }}>
+                                    <Typography sx={{ mb: 0 }} variant="body2" color="primary" gutterBottom>
+                                        <span dangerouslySetInnerHTML={{ __html: article.headline }} />
                                     </Typography>
                                 </Stack>
-                                <Stack direction="row" alignItems="center" gap={0.5}>
-                                    <AccessTimeFilledIcon sx={{ fontSize: 12 }} />
-                                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                                        {this.getTime(article.dateTime)}
-                                    </Typography>
+                                <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
+                                    <Stack direction="row" alignItems="center" gap={0.5}>
+                                        <LocationOnIcon sx={{ fontSize: 14 }} />
+                                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                            <span dangerouslySetInnerHTML={{ __html: article.locations[0].location }} />
+                                        </Typography>
+                                    </Stack>
+                                    <Stack direction="row" alignItems="center" gap={0.5}>
+                                        <AccessTimeFilledIcon sx={{ fontSize: 12 }} />
+                                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                                            {this.getTime(article.dateTime)}
+                                        </Typography>
+                                    </Stack>
                                 </Stack>
-                            </Stack>
-                            <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
-                                {sectionChip}
-                                <BasicModal article={article} />
-                            </Stack>
-                        </Box>
-                        <Box>
-                            {article.imageURL &&
-                                <img className='article-img'
-                                    src={article.imageURL} alt="article"
-                                />
-                            }
-                        </Box>
+                                <Stack sx={{ mb: 0.5 }} direction="row" alignItems="flex-start" justifyContent="space-between" gap={1}>
+                                    {sectionChip}
+                                    <Button color="success" sx={{ fontSize: 11 }} size="small" variant="outlined" onClick={this.handleOpen} startIcon={<ShareIcon />}>
+                                    Share
+                                    </Button>
+                                </Stack>
+                            </Box>
+                            <Box>
+                                {article.imageURL &&
+                                    <img className='article-img'
+                                        src={article.imageURL} alt="article"
+                                    />
+                                }
+                            </Box>
+                        </Stack>
+                        <Typography sx={{ fontSize: 12 }} color="text.secondary">
+                            <span dangerouslySetInnerHTML={{ __html: article.abstract }} />
+                        </Typography>
                     </Stack>
-                    <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                        <span dangerouslySetInnerHTML={{ __html: article.abstract }} />
-                    </Typography>
-                </Stack>
-                <Divider light />
-            </CardActionArea>
+                    <Divider light />
+                </CardActionArea>
+            </Box>
+
         )
     }
 }

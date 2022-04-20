@@ -4,7 +4,14 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import ShareIcon from '@mui/icons-material/Share';
-
+import {
+  EmailShareButton,
+  WhatsappShareButton,
+  TelegramShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from "react-share";
 
 const style = {
   position: 'absolute',
@@ -18,29 +25,13 @@ const style = {
   p: 4,
 };
 export default class BasicModal extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      open: false,
-    };
-  }
   render() {
-    const handleOpen = (e) => {
-      e.preventDefault();
-      this.setState({open: true});
-    }
-    const handleClose = () => {
-      this.setState({open: false});
-    };
 
     return (
       <div>
-        <Button color="success" sx={{ fontSize: 11 }} size="small" variant="outlined" onClick={handleOpen} startIcon={<ShareIcon />}>
-          Share
-        </Button>
         <Modal
-          open={this.state.open}
-          onClose={handleClose}
+          open={this.props.modalOpen}
+          onClose={this.props.handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -51,6 +42,7 @@ export default class BasicModal extends React.Component {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               {this.props.article.headline}
             </Typography>
+            <FacebookShareButton url={this.props.article.webURL} children='Share via Email'/>
           </Box>
         </Modal>
       </div>

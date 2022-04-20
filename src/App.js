@@ -21,8 +21,8 @@ const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
 const TODAY = new Date();
 const CURRENT_YEAR = TODAY.getFullYear();
 const CURRENT_MONTH = TODAY.getMonth() + 1;
-const CURRENT_DAY = 1;
-// const CURRENT_DAY = TODAY.getDate();
+// const CURRENT_DAY = 1;
+const CURRENT_DAY = TODAY.getDate();
 
 const cachedData = {};
 

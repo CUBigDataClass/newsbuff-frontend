@@ -2,10 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
+import { FacebookIcon, TwitterIcon, EmailIcon, WhatsappIcon } from 'react-share';
+import Stack from '@mui/material/Stack';
 
 
 const style = {
@@ -28,6 +28,10 @@ export default function BasicModal() {
   }
   const handleClose = () => setOpen(false);
 
+  const copyLink = () => {
+    alert('url copied')
+    }
+
   return (
     <div>
       {/* <Chip icon={<ShareIcon />} variant="outlined" /> */}
@@ -45,10 +49,27 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+           Share
+          </Typography>
+          <Typography id="modal-modal-description" component="h6" sx={{ mt: 2 }}>
+          <Stack direction="row" alignItems="center" gap={25}>
+              <Typography>Image</Typography>   
+              <Typography>Staten Island New York</Typography>  
+             </Stack>
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <Stack direction="row" alignItems="center" gap={10}>
+              <Typography><input type="text" value="Link" id="myInput" style={{width:'200px'}}/></Typography>   
+              <Typography><button onClick={copyLink} style={{color: 'blue', outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}>COPY LINK</button></Typography>  
+             </Stack>
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Stack direction="row" alignItems="center" gap={1.0}>
+               <button onClick={copyLink} style={{outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}><TwitterIcon size={32} round={true}  /> </button> 
+               <button onClick={copyLink} style={{outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}><FacebookIcon size={32} round={true} /> </button> 
+               <button onClick={copyLink} style={{outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}><EmailIcon size={32} round={true}/> </button> 
+               <button onClick={copyLink} style={{outline: 'none', border: 'none', backgroundColor:'white',cursor:'pointer'}}><WhatsappIcon size={32} round={true}  /> </button> 
+              </Stack>
           </Typography>
         </Box>
       </Modal>

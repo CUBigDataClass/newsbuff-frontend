@@ -7,8 +7,7 @@ import { useState } from 'react';
 export default function Polygon(){
 
     const[mapLayers, setMapLayers] = useState([]);
-
-
+    
     const _onCreate = e => {
         console.log(e);
 
@@ -48,8 +47,7 @@ export default function Polygon(){
         });
       };
 
-     
-
+      console.log(JSON.stringify(mapLayers,0,2))
     //   const points = mapLayers[0].latlngs;
     //   console.log({points});
     //   const pointsLength = points.length;
@@ -62,11 +60,8 @@ export default function Polygon(){
     //   const data = [polygon];
     //   console.log({data})
 
-   
-
     return (
         <FeatureGroup>
-            <pre className="text-left">{JSON.stringify(mapLayers,0,2)}</pre>
         <EditControl 
           position="topleft" 
           onCreated={_onCreate} 
@@ -82,7 +77,8 @@ export default function Polygon(){
         />
       </FeatureGroup>
       
-      
-
     )
+   
 }
+
+

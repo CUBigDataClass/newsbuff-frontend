@@ -10,16 +10,19 @@ To display an interactive world map which dynamically fetches News Articles and 
 **Webpack** module bundler used for managing the JavaScript codebase<br>
 
 **Main JavaScript** Library used for building the front-end is **ReactJS** 
+
     - The code was modularized into multiple components (React functional and class components), which were created for various functionalities of the project such as filtering and searching articles. 
     - The main App.js renders the front-end while interacting with the various components. 
     - App.js fetches back-end data from the API_BASE_URL: 'https://crypto-volt-345721.et.r.appspot.com/api'
 
 **Interactive Map Framework** used is **Leaflet** | Tiles @Esri 
+
     - The main base map is intergrated using Leaflet.
     - Various leaflet plugins for the map were also used to integrate functionalities such as - hovering 
     over news article pins (markers and popup), selecting an area of the map by drawing a polygon (react-leaflet-draw), etc..
 
  **Major 3rd-party library** used for **styling** and front-end design is **Material-UI (@mui/material/...)** 
+ 
     - News Article Card components were designed using this library which includes typography,stack, cardactionarea, chip, etc..
 
 

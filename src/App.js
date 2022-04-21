@@ -18,10 +18,13 @@ import Polygon from "./Polygon";
 
 
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
-const TODAY = new Date();
-const CURRENT_YEAR = TODAY.getFullYear();
-const CURRENT_MONTH = TODAY.getMonth() + 1;
-const CURRENT_DAY = TODAY.getDate();
+// const TODAY = new Date();
+// const CURRENT_YEAR = TODAY.getFullYear();
+// const CURRENT_MONTH = TODAY.getMonth() + 1;
+// const CURRENT_DAY = TODAY.getDate();
+const CURRENT_YEAR = 2022;
+const CURRENT_MONTH = 4;
+const CURRENT_DAY = 20;
 
 const cachedData = {};
 

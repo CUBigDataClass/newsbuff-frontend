@@ -15,8 +15,6 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import Polygon from "./Polygon";
 
 
-
-
 const API_BASE_URL = 'https://crypto-volt-345721.et.r.appspot.com/api'
 // const TODAY = new Date();
 // const CURRENT_YEAR = TODAY.getFullYear();
@@ -253,9 +251,6 @@ class App extends Component {
       `
     });
   }
-
-  
-  
 
   render() {
     return (

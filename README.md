@@ -1,30 +1,36 @@
-# Getting Started with Create React App
+# ATLS 5214: Big Data Architecture (Spring 2022)
+## Project Name: News Buff
+## Team Name: Headliners
+## Team Members-
+1. Sagar Pathare
+2. Akshay Abhyankar
+3. Anusha Basavaraja
+4. Pratyush Thota
+5. Saumya Bansal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Link- [https://newsbuff.ml/](https://newsbuff.ml/)
 
-**Project Description**<br>
-To display an interactive world map which dynamically fetches News Articles and displays them across the map. The user has the flexibility to view the articles, filter articles based on date, and also search for various articles of personal interest. 
+### This repository contains the Frontend Code
+* [Backend Repository](https://github.com/CUBigDataClass/newsbuff-datafetch)
+* [Final Presentation](https://drive.google.com/file/d/1ITjJ-wMPlwxX1TmN7ecbLhtJbw1PlhYu/view?usp=sharing)
+* [Demo Video](https://www.youtube.com/watch?v=0N3z6ShcNKk)
 
-**Package Manager** used is **NPM** <br>
 
-**Webpack** module bundler used for managing the JavaScript codebase<br>
+## Project Description
+* News Buff is an interactive world map of global news
+* News pins are populated on the map depending on the user inputs - year, month, day, query
+* Each news article's location is geocoded and shown on the map
+* Sentiment analysis is done on each news article to calculate a sentiment score from -1 to 1
+* Each location has an average sentiment score and shows its articles
+* Share article via Social Media
 
-**Main JavaScript** Library used for building the front-end is **ReactJS** 
+## Tools used
 
-    - The code was modularized into multiple components (React functional and class components), which were created for various functionalities of the project such as filtering and searching articles. 
-    - The main App.js renders the front-end while interacting with the various components. 
-    - App.js fetches back-end data from the API_BASE_URL: 'https://crypto-volt-345721.et.r.appspot.com/api'
-
-**Interactive Map Framework** used is **Leaflet** | Tiles @Esri 
-
-    - The main base map is intergrated using React Leaflet Component Library.
-    - Various leaflet plugins for the map were also used to integrate functionalities such as - hovering 
-    over news article pins (markers and popup), selecting an area of the map by drawing a polygon (react-leaflet-draw), etc..
-
- **Major 3rd-party library** used for **styling** and front-end design is **Material-UI (@mui/material/...)** 
-
-    - News Article Card components were designed using this library which includes typography,stack, cardactionarea, chip, etc..
-
+* Package Manager used is NPM   
+* Webpack module bundler used for managing the JavaScript codebase  
+* Main JavaScript Library used for building the front-end is ReactJS 
+* Interactive Map Framework used is Leaflet
+* Major 3rd-party library used for styling and front-end design is Material-UI (@mui/material/...) 
 
 ## Available Scripts
 
@@ -38,11 +44,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
@@ -52,33 +53,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
